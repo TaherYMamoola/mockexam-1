@@ -1,25 +1,24 @@
 package com.github.question1;
 
-
-
 /*
  * Before you start, you should:
  * 1. Put the CSV file into your resources folder
 
  * You are an engineer and have collected a dataset on how different shape of buildings affect the energy efficiency.
- * You have to perform an analysis to determine the heating load and cooling load of the building, given a set
- * of attributes which correspond to a shape. Here, the hints of what you should do is given below:
+ * You have to perform an analysis to determine:
+ * 1. the heating load and;
+ * 2. cooling load of the building,
+ * given a set of attributes which correspond to a shape. Here, the hints of what you should do is given below:
 
- * Step 1: Read the CSV file in a RecordReader
- * Step 2: Specify the transform process
- * Step 3: Put each instances into the List<List<Writable>>
- * Step 4: Perform shuffling of dataset with seed number provided
- * Step 5: Do train and test splitting
- * Step 6: Do data normalisation in the form of [0,1]
- * Step 7: Define the specifications for early stopping, and subsequently perform early stopping. Your model should not
- *         take more than 200 epochs for training.
- * Step 8: Perform evaluation on both train and test set. Kindly ensure R2 score of outputs on both train and test
- *         is more than +90%.
+ * Hint for transform process:
+ * a) remove unused columns
+ * b) filter out empty rows
+
+ * Hint for model training: Perform early stopping so that the model does not overfit
+ * Specifications:-
+ * a) Calculate average loss on dataset
+ * b) terminate if there is no improvement for 1 epoch
+ * c) check the loss for each epoch
 
  * Dataset origin: https://archive.ics.uci.edu/ml/datasets/Energy+efficiency#
  * Dataset attribute description:
@@ -35,6 +34,27 @@ package com.github.question1;
  * Y2: Cooling Load
  */
 
+import org.datavec.api.records.reader.impl.collection.CollectionRecordReader;
+import org.datavec.api.transform.TransformProcess;
+import org.datavec.api.transform.schema.Schema;
+import org.datavec.api.writable.Writable;
+import org.datavec.local.transforms.LocalTransformExecutor;
+import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
+import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
+import org.deeplearning4j.nn.conf.layers.DenseLayer;
+import org.deeplearning4j.nn.conf.layers.OutputLayer;
+import org.deeplearning4j.nn.weights.WeightInit;
+import org.nd4j.evaluation.regression.RegressionEvaluation;
+import org.nd4j.linalg.activations.Activation;
+import org.nd4j.linalg.dataset.DataSet;
+import org.nd4j.linalg.dataset.ViewIterator;
+import org.nd4j.linalg.learning.config.Adam;
+import org.nd4j.linalg.lossfunctions.LossFunctions;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class EnergyEfficiency {
 
     //===============Tunable parameters============
@@ -43,15 +63,17 @@ public class EnergyEfficiency {
     private static double trainFraction = 0.8;
     private static double lr = 0.001;
     //=============================================
+    private static TransformProcess tp;
+    private static DataSet trainSet;
+    private static DataSet testSet;
+    private static RegressionEvaluation evalTrain;
+    private static RegressionEvaluation evalTest;
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
         /*
-         * Step 1: Read the CSV file in a RecordReader
+         * Enter your code here
          */
-        //====== Your code block starts here===========
-
-        //====== Your code block ends here===========
 
         Schema schema = new Schema.Builder()
                 .addColumnsDouble("rel-compactness","surface-area","wall-area","roof-area","overall-height")
@@ -63,22 +85,14 @@ public class EnergyEfficiency {
                 .build();
 
         /*
-         * Step 2: Specify the transform process
-         * 2-1: remove unused columns
-         * 2-2: filter out empty rows
+         * Enter your code here
          */
-        //====== Your code block starts here===========
-
-        //====== Your code block ends here===========
 
         List<List<Writable>> data = new ArrayList<>();
 
         /*
-         * Step 3: Put each instances into the List<List<Writable>>
-         * */
-        //====== Your code block starts here===========
-
-        //====== Your code block ends here===========
+         * Enter your code here
+         */
 
         List<List<Writable>> transformed = LocalTransformExecutor.execute(data, tp);
         System.out.println("=======Initial Schema=========\n"+ tp.getInitialSchema());
@@ -96,26 +110,8 @@ public class EnergyEfficiency {
         CollectionRecordReader crr = new CollectionRecordReader(transformed);
 
         /*
-         * Step 4: Perform shuffling of dataset with seed number provided
-         * Do keep in mind that there are 2 targets for this regression problem
+         * Enter your code here
          */
-        //====== Your code block starts here===========
-
-        //====== Your code block ends here===========
-
-        /*
-         * Step 5: Do train and test splitting
-         */
-        //====== Your code block starts here===========
-
-        //====== Your code block ends here===========
-
-        /*
-         * Step 6: Do data normalisation in the form of [0,1]
-         */
-        //====== Your code block starts here===========
-
-        //====== Your code block ends here===========
 
         ViewIterator trainIter = new ViewIterator(trainSet, batchSize);
         ViewIterator testIter = new ViewIterator(testSet, batchSize);
@@ -129,6 +125,7 @@ public class EnergyEfficiency {
                 .layer(new DenseLayer.Builder()
                         .nIn(trainIter.inputColumns())
                         .nOut(50)
+                        .nOut(50)
                         .build())
                 .layer(new OutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .nOut(2)
@@ -136,24 +133,11 @@ public class EnergyEfficiency {
                         .build())
                 .build();
 
-        /*
-         * Step 7: Perform early stopping so that the model does not overfit
-         * Specifications:-
-         * a) Calculate average loss on dataset
-         * b) terminate if there is no improvement for 1 epoch
-         * c) check the loss for each epoch
-         * Your model should not take more than 200 epochs for training
-         */
-        //====== Your code block starts here===========
 
-        //====== Your code block ends here===========
 
         /*
-         * Step 8: Perform evaluation for both train and test set using the early stopping model
+         * Enter your code here
          */
-        //====== Your code block starts here===========
-
-        //====== Your code block ends here===========
 
         System.out.println(evalTrain.stats());
         System.out.println(evalTest.stats());
