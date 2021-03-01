@@ -2,6 +2,7 @@ target
 ideatarget
 .target
 .cache
+.metadata
 .cache-main
 .cache-tests
 .classpath
