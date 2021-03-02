@@ -44,7 +44,10 @@ import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
 import org.deeplearning4j.nn.conf.layers.DenseLayer;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.deeplearning4j.nn.weights.WeightInit;
+<<<<<<< HEAD
 import org.nd4j.common.io.ClassPathResource;
+=======
+>>>>>>> f8e00bdbc3ac97580d914a28d1d975d7a8126fd5
 import org.nd4j.evaluation.regression.RegressionEvaluation;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.dataset.DataSet;
@@ -52,7 +55,10 @@ import org.nd4j.linalg.dataset.ViewIterator;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
+<<<<<<< HEAD
 import java.io.File;
+=======
+>>>>>>> f8e00bdbc3ac97580d914a28d1d975d7a8126fd5
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +82,10 @@ public class EnergyEfficiency {
         /*
          * Enter your code here
          */
+<<<<<<< HEAD
         File filePath = new ClassPathResource("EnergyEfficiency/ENB2012_data.csv").getFile();
+=======
+>>>>>>> f8e00bdbc3ac97580d914a28d1d975d7a8126fd5
 
         Schema schema = new Schema.Builder()
                 .addColumnsDouble("rel-compactness","surface-area","wall-area","roof-area","overall-height")
@@ -136,6 +145,11 @@ public class EnergyEfficiency {
                         .build())
                 .build();
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> f8e00bdbc3ac97580d914a28d1d975d7a8126fd5
         /*
          * Enter your code here
          */

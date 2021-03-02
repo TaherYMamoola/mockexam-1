@@ -2,6 +2,10 @@ target
 ideatarget
 .target
 .cache
+<<<<<<< HEAD
+=======
+.metadata
+>>>>>>> f8e00bdbc3ac97580d914a28d1d975d7a8126fd5
 .cache-main
 .cache-tests
 .classpath
@@ -20,4 +24,10 @@ node_modules/
 *.mdmp
 .pb
 .png
+<<<<<<< HEAD
 .metadata
+=======
+export/*.png
+BasicDataVecExampleLocalOutput.csv
+**/*.zip
+>>>>>>> f8e00bdbc3ac97580d914a28d1d975d7a8126fd5
