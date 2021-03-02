@@ -5,10 +5,11 @@ import org.datavec.api.split.InputSplit;
 import org.datavec.image.loader.BaseImageLoader;
 import org.datavec.image.recordreader.ImageRecordReader;
 import org.datavec.image.transform.ImageTransform;
+import org.nd4j.common.io.ClassPathResource;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.dataset.api.preprocessor.DataNormalization;
 import org.nd4j.linalg.dataset.api.preprocessor.ImagePreProcessingScaler;
-import org.nd4j.linalg.io.ClassPathResource;
+
 
 import java.io.File;
 import java.io.IOException;

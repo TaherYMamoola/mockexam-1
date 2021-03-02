@@ -21,6 +21,7 @@ node_modules/
 *.mdmp
 .pb
 .png
+.metadata
 export/*.png
 BasicDataVecExampleLocalOutput.csv
 **/*.zip
