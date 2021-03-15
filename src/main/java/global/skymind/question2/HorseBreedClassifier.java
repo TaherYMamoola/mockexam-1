@@ -1,4 +1,4 @@
-package com.github.question2;
+package global.skymind.question2;
 
 import org.datavec.image.transform.*;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
