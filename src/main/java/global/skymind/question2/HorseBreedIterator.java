@@ -1,4 +1,4 @@
-package com.github.question2;
+package global.skymind.question2;
 
 import org.datavec.api.io.labels.ParentPathLabelGenerator;
 import org.datavec.api.split.InputSplit;

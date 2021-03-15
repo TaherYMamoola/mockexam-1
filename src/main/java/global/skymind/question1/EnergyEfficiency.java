@@ -1,4 +1,4 @@
-package com.github.question1;
+package global.skymind.question1;
 
 /*
  * Before you start, you should:
