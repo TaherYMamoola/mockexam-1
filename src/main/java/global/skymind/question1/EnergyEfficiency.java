@@ -73,10 +73,10 @@ public class EnergyEfficiency {
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
+        File filePath = new ClassPathResource("EnergyEfficiency/ENB2012_data.csv").getFile();
         /*
          * Enter your code here
          */
-        File filePath = new ClassPathResource("EnergyEfficiency/ENB2012_data.csv").getFile();
 
         Schema schema = new Schema.Builder()
                 .addColumnsDouble("rel-compactness","surface-area","wall-area","roof-area","overall-height")
