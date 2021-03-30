@@ -32,7 +32,7 @@ import java.util.Random;
  * 1. Correct and complete configuration details
  * 2. HorseBreedClassifier is executable
  * 3. Convergence of the network
- *
+ * 4. Accuracy for both train and test are both over 85%
  * ====================================================================
  ** NOTE: Only make changes at sections with the following. Replace accordingly.
  *
