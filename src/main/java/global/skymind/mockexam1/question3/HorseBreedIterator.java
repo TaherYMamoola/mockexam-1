@@ -1,4 +1,4 @@
-package global.skymind.question2;
+package global.skymind.mockexam1.question3;
 
 import org.datavec.api.io.labels.ParentPathLabelGenerator;
 import org.datavec.api.split.InputSplit;

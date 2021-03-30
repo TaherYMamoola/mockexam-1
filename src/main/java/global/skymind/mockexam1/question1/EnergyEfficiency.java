@@ -1,4 +1,4 @@
-package global.skymind.question1;
+package global.skymind.mockexam1.question1;
 
 /*
  * Before you start, you should:
@@ -22,7 +22,7 @@ package global.skymind.question1;
 
  * Dataset origin: https://archive.ics.uci.edu/ml/datasets/Energy+efficiency#
  * Dataset attribute description:
- * X1: Relative Compactness
+ * X1: Relative Compactnessgit s
  * X2: Surface Area
  * X3: Wall Area
  * X4: Roof Area

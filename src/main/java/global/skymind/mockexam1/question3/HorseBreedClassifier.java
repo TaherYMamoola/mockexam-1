@@ -1,5 +1,6 @@
-package global.skymind.question2;
+package global.skymind.mockexam1.question3;
 
+import global.skymind.mockexam1.HorseBreedIterator;
 import org.datavec.image.transform.*;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
