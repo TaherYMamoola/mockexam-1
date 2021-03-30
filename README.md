@@ -9,7 +9,7 @@ In order to take the exam, you must run this in IntelliJ.
 4. Run program for initial test.
 
 ## Instructions for Mock Exam
-1. There are 2 questions in this mock exam - in folder ```question1``` and ```question2``` respectively.
+1. There are 3 questions in this mock exam - in folder ```question1```, ```question2``` and ```question3``` respectively.
 2. Read the instructions carefully and understand the requirements of each question in each of the .java file before you start.
 3. Do not change any part of the code unless specified.
 4. Ensure that all the variables declared initially are utilised.
