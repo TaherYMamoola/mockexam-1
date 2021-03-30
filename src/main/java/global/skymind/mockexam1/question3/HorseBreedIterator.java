@@ -65,7 +65,7 @@ public class HorseBreedIterator {
         testData = allData[1];
     }
 
-    public static DataSetIterator makeIterator(boolean train) throws IOException {
+    private static DataSetIterator makeIterator(boolean train) throws IOException {
 
         ImageRecordReader rr = new ImageRecordReader(height,width,nChannel,labelMaker);
 
