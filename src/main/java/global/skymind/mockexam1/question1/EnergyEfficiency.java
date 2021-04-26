@@ -34,21 +34,29 @@ package global.skymind.mockexam1.question1;
  * Y2: Cooling Load
  */
 
+import au.com.bytecode.opencsv.CSVReader;
 import org.datavec.api.records.reader.impl.collection.CollectionRecordReader;
+import org.datavec.api.records.reader.impl.csv.CSVRecordReader;
+import org.datavec.api.split.FileSplit;
 import org.datavec.api.transform.TransformProcess;
 import org.datavec.api.transform.schema.Schema;
 import org.datavec.api.writable.Writable;
 import org.datavec.local.transforms.LocalTransformExecutor;
+import org.deeplearning4j.datasets.datavec.RecordReaderDataSetIterator;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
 import org.deeplearning4j.nn.conf.layers.DenseLayer;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
+import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
+import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
 import org.nd4j.common.io.ClassPathResource;
 import org.nd4j.evaluation.regression.RegressionEvaluation;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.dataset.DataSet;
+import org.nd4j.linalg.dataset.SplitTestAndTrain;
 import org.nd4j.linalg.dataset.ViewIterator;
+import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
@@ -74,28 +82,29 @@ public class EnergyEfficiency {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         File filePath = new ClassPathResource("EnergyEfficiency/ENB2012_data.csv").getFile();
-        /*
-         * Enter your code here
-         */
+        CSVRecordReader rr = new CSVRecordReader();
+        rr.initialize(new FileSplit(filePath));
+
 
         Schema schema = new Schema.Builder()
-                .addColumnsDouble("rel-compactness","surface-area","wall-area","roof-area","overall-height")
-                .addColumnInteger("orientation")
-                .addColumnDouble("glazing-area")
-                .addColumnInteger("glazing-area-distribution")
-                .addColumnsDouble("heating-load","cooling-load")
+                .addColumnsDouble("X1","X2","X3","X4","X5")
+                .addColumnInteger("X6")
+                .addColumnDouble("X7")
+                .addColumnInteger("X8")
+                .addColumnsDouble("Y1","Y2")
                 .addColumnsString("emptyCol1","emptyCol2")
                 .build();
 
-        /*
-         * Enter your code here
-         */
+        TransformProcess tp = new TransformProcess.Builder(schema)
+                .removeColumns("emptyCol1","emptyCol2")
+                .build();
 
         List<List<Writable>> data = new ArrayList<>();
+        while(rr.hasNext()){
+            List<Writable> d = rr.next();
+            data.add(d);
+        }
 
-        /*
-         * Enter your code here
-         */
 
         List<List<Writable>> transformed = LocalTransformExecutor.execute(data, tp);
         System.out.println("=======Initial Schema=========\n"+ tp.getInitialSchema());
@@ -111,10 +120,15 @@ public class EnergyEfficiency {
                 "\nColumns after transform: "+ tp.getFinalSchema().numColumns());
 
         CollectionRecordReader crr = new CollectionRecordReader(transformed);
+        DataSetIterator dataIter = new RecordReaderDataSetIterator(crr,transformed.size(),8,9,true);
 
-        /*
-         * Enter your code here
-         */
+        DataSet allData = dataIter.next();
+        allData.shuffle();
+
+        SplitTestAndTrain trainTestSplit = allData.splitTestAndTrain(0.8);
+        trainSet = trainTestSplit.getTrain();
+        testSet = trainTestSplit.getTest();
+
 
         ViewIterator trainIter = new ViewIterator(trainSet, batchSize);
         ViewIterator testIter = new ViewIterator(testSet, batchSize);
@@ -136,12 +150,16 @@ public class EnergyEfficiency {
                         .build())
                 .build();
 
-        /*
-         * Enter your code here
-         */
+        MultiLayerNetwork model = new MultiLayerNetwork(config);
+        model.init();
+        model.setListeners(new ScoreIterationListener(10));
+        model.fit(trainIter);
 
         System.out.println(evalTrain.stats());
         System.out.println(evalTest.stats());
+
+        RegressionEvaluation regEval = model.evaluateRegression(testIter);
+        System.out.println(regEval.stats());
 
     }
 
